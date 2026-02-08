@@ -29,7 +29,10 @@ const fontColorOptions = [
 
 function App() {
   const [text, setText] = useState(
-    `Speed reading works by showing one word at a time in the same spot. Your eyes stay fixed while the words flow past. This method can help you read faster because you skip the time spent moving your gaze across the page. Try adjusting the words per minute until you find a comfortable pace. The red letter marks the center of each word to keep your focus sharp. Clear your text and paste anything you like—articles, books, or notes—to practice.`
+    `Speed reading works by showing one word at a time in the same spot. 
+    Your eyes stay fixed while the words flow past. 
+    This method can help you read faster because you skip the time spent moving your gaze across the page. Try adjusting the words per minute until you find a comfortable pace. 
+    The red letter marks the center of each word to keep your focus sharp. Clear your text and paste anything you like: articles, books, or notes to practice.`
   )
   const [wpm, setWpm] = useState(320)
   const [fontFamily, setFontFamily] = useState(fontOptions[0].value)
@@ -56,8 +59,19 @@ function App() {
   useEffect(() => {
     if (!isPlaying || !words.length) return
 
-    const intervalMs = Math.max(20, Math.round(60000 / wpm))
-    const timer = window.setInterval(() => {
+    const baseMs = Math.max(20, Math.round(60000 / wpm))
+
+    // Adjust delay based on punctuation at end of current word
+    const word = words[currentIndex] ?? ''
+    const lastChar = word[word.length - 1]
+    let delay = baseMs
+    if (lastChar === ',') {
+      delay = Math.round(baseMs * 1.5)
+    } else if (lastChar === '.' || lastChar === '!' || lastChar === '?') {
+      delay = Math.round(baseMs * 1.875) // 25% more than comma pause
+    }
+
+    const timer = window.setTimeout(() => {
       setCurrentIndex((prev) => {
         const next = prev + 1
         if (next >= words.length) {
@@ -66,10 +80,10 @@ function App() {
         }
         return next
       })
-    }, intervalMs)
+    }, delay)
 
-    return () => window.clearInterval(timer)
-  }, [isPlaying, wpm, words.length])
+    return () => window.clearTimeout(timer)
+  }, [isPlaying, wpm, words, currentIndex])
 
   const handleStart = () => {
     if (!totalWords) return
