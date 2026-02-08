@@ -45,7 +45,7 @@ function App() {
   const isAtEnd = totalWords > 0 && currentIndex >= totalWords - 1
   const wordNumber = totalWords ? Math.min(currentIndex + 1, totalWords) : 0
   const progress = totalWords ? Math.min((wordNumber / totalWords) * 100, 100) : 0
-  const status = !totalWords ? 'Idle' : isPlaying ? 'Playing' : isAtEnd ? 'Completed' : 'Paused'
+  // const status = !totalWords ? 'Idle' : isPlaying ? 'Playing' : isAtEnd ? 'Completed' : 'Paused'
 
   useEffect(() => {
     if (currentIndex >= words.length) {
@@ -215,6 +215,10 @@ function App() {
         </section>
 
         <section className="viewer">
+          <div className="viewer-reticle" aria-hidden>
+            <span className="reticle-bar reticle-top" />
+            <span className="reticle-bar reticle-bottom" />
+          </div>
           <div
             className="word-display"
             style={{
@@ -238,10 +242,10 @@ function App() {
             )}
           </div>
           <div className="viewer-meta">
-            <span>
+            {/* <span>
               Word {wordNumber} of {totalWords}
-            </span>
-            <span>{status}</span>
+            </span> */}
+            {/* <span>{status}</span> */}
           </div>
           <div className="progress">
             <div className="progress-bar" style={{ width: `${progress}%` }} />

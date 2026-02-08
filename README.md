@@ -4,6 +4,10 @@ A small, focused **Rapid Serial Visual Presentation (RSVP)** app. Paste text, pi
 
 RSVP (Rapid Serial Visual Presentation) shows information quickly—one item at a time—in the same spot on the screen. The content moves, not your eyes.
 
+## Screenshot
+
+![RSVP app screenshot](speed-reading-app/public/screenshots/Screenshot_8-2-2026_231423.jpeg)
+
 ## Features
 
 - **Paste & play**: paste any text and start an RSVP session
