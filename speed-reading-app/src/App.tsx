@@ -40,8 +40,12 @@ function App() {
   const [currentIndex, setCurrentIndex] = useState(0)
 
   const words = useMemo(() => text.trim().split(/\s+/).filter(Boolean), [text])
+  const totalWords = words.length
   const currentWord = words[currentIndex] ?? ''
-  const progress = words.length ? Math.min(((currentIndex + 1) / words.length) * 100, 100) : 0
+  const isAtEnd = totalWords > 0 && currentIndex >= totalWords - 1
+  const wordNumber = totalWords ? Math.min(currentIndex + 1, totalWords) : 0
+  const progress = totalWords ? Math.min((wordNumber / totalWords) * 100, 100) : 0
+  const status = !totalWords ? 'Idle' : isPlaying ? 'Playing' : isAtEnd ? 'Completed' : 'Paused'
 
   useEffect(() => {
     if (currentIndex >= words.length) {
@@ -68,10 +72,8 @@ function App() {
   }, [isPlaying, wpm, words.length])
 
   const handleStart = () => {
-    if (!words.length) return
-    if (currentIndex >= words.length) {
-      setCurrentIndex(0)
-    }
+    if (!totalWords) return
+    if (isAtEnd) setCurrentIndex(0)
     setIsPlaying(true)
   }
 
@@ -133,7 +135,7 @@ function App() {
               <span className="wpm-help">
                 ?
                 <span className="wpm-tooltip">
-                  {(wpm / 60).toFixed(1)} words per second. Above 24 words per second you cannot see the word anymore.
+                  {(wpm / 60).toFixed(1)} words per second. Higher speeds reduce comprehension — find a pace that stays comfortable.
                 </span>
               </span>
             </span>
@@ -203,10 +205,10 @@ function App() {
           </label>
 
           <div className="actions">
-            <button className="primary" onClick={isPlaying ? handlePause : handleStart} disabled={!words.length || currentIndex >= words.length}>
+            <button className="primary" onClick={isPlaying ? handlePause : handleStart} disabled={!totalWords}>
               {isPlaying ? 'Pause' : 'Start'}
             </button>
-            <button onClick={handleReset} disabled={!words.length}>
+            <button onClick={handleReset} disabled={!totalWords}>
               Reset
             </button>
           </div>
@@ -236,10 +238,10 @@ function App() {
             )}
           </div>
           <div className="viewer-meta">
-            {/* <span>
-              Word {words.length ? currentIndex + 1 : 0} of {words.length}
-            </span> */}
-            <span>{isPlaying ? 'Playing' : 'Paused'}</span>
+            <span>
+              Word {wordNumber} of {totalWords}
+            </span>
+            <span>{status}</span>
           </div>
           <div className="progress">
             <div className="progress-bar" style={{ width: `${progress}%` }} />

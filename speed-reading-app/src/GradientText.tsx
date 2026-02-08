@@ -1,8 +1,8 @@
-import { useState, useCallback, useEffect, useRef, ReactNode } from 'react'
+import { useState, useCallback, useEffect, useRef, type ReactNode } from 'react'
 import { motion, useMotionValue, useAnimationFrame, useTransform } from 'motion/react'
 import './GradientText.css'
 
-interface GradientTextProps {
+export type GradientTextProps = {
   children: ReactNode
   className?: string
   colors?: string[]
@@ -13,7 +13,7 @@ interface GradientTextProps {
   yoyo?: boolean
 }
 
-// Adapted from React Bits (GradientText).
+// Adapted from a "GradientText" UI pattern (see README credits).
 export default function GradientText({
   children,
   className = '',
@@ -87,8 +87,9 @@ export default function GradientText({
 
   const gradientAngle =
     direction === 'horizontal' ? 'to right' : direction === 'vertical' ? 'to bottom' : 'to bottom right'
+  const palette = colors.length ? colors : ['#5227FF', '#FF9FFC', '#B19EEF']
   // Duplicate first color at the end for seamless looping
-  const gradientColors = [...colors, colors[0]].join(', ')
+  const gradientColors = [...palette, palette[0]].join(', ')
 
   const gradientStyle = {
     backgroundImage: `linear-gradient(${gradientAngle}, ${gradientColors})`,

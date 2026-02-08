@@ -2,7 +2,15 @@
   "name": "speed-reading-app",
   "private": true,
   "version": "0.0.0",
+  "description": "RSVP speed-reading web app that flashes one word at a time.",
   "type": "module",
+  "keywords": [
+    "rsvp",
+    "speed-reading",
+    "reading",
+    "react",
+    "vite"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
