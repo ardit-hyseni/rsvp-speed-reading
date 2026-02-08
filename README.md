@@ -8,6 +8,8 @@ RSVP (Rapid Serial Visual Presentation) shows information quickly—one item at 
 
 ![RSVP app screenshot](speed-reading-app/public/screenshots/Screenshot_8-2-2026_231423.jpeg)
 
+![RSVP demo](speed-reading-app/public/screenshots/demo.gif)
+
 ## Features
 
 - **Paste & play**: paste any text and start an RSVP session

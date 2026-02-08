@@ -29,7 +29,7 @@ const fontColorOptions = [
 
 function App() {
   const [text, setText] = useState(
-    'Paste your text here to start a rapid serial visual presentation session.'
+    `Speed reading works by showing one word at a time in the same spot. Your eyes stay fixed while the words flow past. This method can help you read faster because you skip the time spent moving your gaze across the page. Try adjusting the words per minute until you find a comfortable pace. The red letter marks the center of each word to keep your focus sharp. Clear your text and paste anything you like—articles, books, or notes—to practice.`
   )
   const [wpm, setWpm] = useState(320)
   const [fontFamily, setFontFamily] = useState(fontOptions[0].value)
