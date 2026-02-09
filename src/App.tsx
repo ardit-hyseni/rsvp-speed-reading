@@ -125,7 +125,7 @@ function App() {
   return (
     <div className="app">
       <header className="app-header">
-        <GradientText showBorder animationSpeed={10} className="title">
+        <GradientText showBorder animationSpeed={90} className="title">
           Rapid Serial Visual Presentation
         </GradientText>
         <p className="subtitle">Paste text, set your speed, and read one focused word at a time.</p>
